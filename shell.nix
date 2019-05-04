@@ -5,10 +5,12 @@ let
   pkgs =
     import <nixpkgs> { overlays = [ nixpkgs-mozilla ]; };
 
-  rust = (pkgs.rustChannelOf { date = "2019-04-21"; channel = "nightly"; }).rust.override {
+  rustChannel =
+    pkgs.rustChannelOf { date = "2019-04-21"; channel = "nightly"; };
+
+  rust = rustChannel.rust.override {
     extensions = [
       "clippy-preview"
-      "rust-src"
       "rls-preview"
       "rustfmt-preview"
     ];
@@ -19,4 +21,9 @@ pkgs.mkShell {
   buildInputs = [
     rust
   ];
+  shellHook = ''
+    # https://github.com/rust-lang/rfcs/issues/2324#issuecomment-429521575
+    mkdir -p ./target/doc
+    cp -R --no-preserve=mode,ownership --dereference ${rustChannel.rust-docs}/share/doc/rust/html/* ./target/doc/
+  '';
 }
