@@ -5,3 +5,6 @@ authors = ["Jordan Mackie <jmackie@protonmail.com>"]
 edition = "2018"
 
 [dependencies]
+rnix = { git = "https://github.com/jD91mZM2/rnix", rev = "550b1c5a42d0e5b409042bc50d1f470fae0fa8dc" } # "0.6.0"
+rowan = "0.5.0"  # same as rnix
+syntex_syntax = "0.59.1"  # for print::pp
