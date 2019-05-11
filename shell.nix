@@ -22,8 +22,10 @@ pkgs.mkShell {
     rust
   ];
   shellHook = ''
-    # https://github.com/rust-lang/rfcs/issues/2324#issuecomment-429521575
-    mkdir -p ./target/doc
-    cp -R --no-preserve=mode,ownership --dereference ${rustChannel.rust-docs}/share/doc/rust/html/* ./target/doc/
+    function cp_std_doc {
+      # https://github.com/rust-lang/rfcs/issues/2324#issuecomment-429521575
+      mkdir -p ./target/doc
+      cp -R --no-preserve=mode,ownership --dereference ${rustChannel.rust-docs}/share/doc/rust/html/* ./target/doc/
+    }
   '';
 }
